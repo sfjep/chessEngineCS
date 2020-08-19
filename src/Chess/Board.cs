@@ -22,7 +22,7 @@ namespace Chess
 
         private void arrayToBitboards(char[,] initialChessBoard, long WK, long WQ, long WR, long WN, long WB, long WP, long BK, long BQ, long BR, long BN, long BB, long BP)
         {
-            var binary = "000000000000000000000000000000000000000000000000000000000000000";
+            var bin = "000000000000000000000000000000000000000000000000000000000000000";
 
             for(int i = 0; i < 64; i++)
             {
