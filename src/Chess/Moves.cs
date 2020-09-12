@@ -124,7 +124,14 @@ namespace Chess
 
             return movesList;
         }
+        private static string alternativeKingMoves(int i, char[,] chessBoard)
+        {
+            // ADD CASTLING LATER
+            string movesList = "";
+            
 
+            return movesList;
+        }
         private static bool kingInCheck()
         {
             return true;

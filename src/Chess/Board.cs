@@ -1,6 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
-using System.Linq;
 
 namespace Chess
 {
@@ -21,6 +19,8 @@ namespace Chess
                 {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}  
             };
             arrayToBitboards(initialChessBoard, WK, WQ, WR, WN, WB, WP, BK, BQ, BR, BN, BB, BP);
+
+            Moves.possibleMoves(initialChessBoard);
         }
 
         public void arrayToBitboards(char[,] chessBoard, long WK, long WQ, long WR, long WN, long WB, long WP, long BK, long BQ, long BR, long BN, long BB, long BP)
