@@ -2,8 +2,8 @@
 
 Classes for
 - Pieces
-- Board/Each square of the board/both
-
+- Board
+- Moves
 
 
 States:
