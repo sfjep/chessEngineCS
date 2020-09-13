@@ -1,6 +1,8 @@
 # chessEngine
 Following Logic Crazy Chess videos for setting up bitboards
 
+Notes to self:
+
 Classes for
 - Pieces
 - Board
