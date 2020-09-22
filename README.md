@@ -1,5 +1,7 @@
 # chessEngine
-Following Logic Crazy Chess videos for setting up bitboards
+Sources of inspiration:
+- Logic Crazy Chess videos
+- https://www.gamedev.net/tutorials/_/technical/artificial-intelligence/chess-programming-part-i-getting-started-r1014/
 
 Notes to self:
 

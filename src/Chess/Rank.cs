@@ -13,5 +13,15 @@ namespace Chess
         public static long RANK_7 = (1L<<8) | (1L<<9) | (1L<<10) | (1L<<11) | (1L<<12) | (1L<<13) | (1L<<14) | (1L<<15);
         public static long RANK_8 = 1L | (1L<<1) | (1L<<2) | (1L<<3) | (1L<<4) | (1L<<5) | (1L<<6) | (1L<<7);
         public static List<string> rankNames = new List<string>() {"1", "2", "3", "4", "5", "6", "7", "8"};
+        public static List<long> AllRanks = new List<long>() {RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8};
+
+        public static long bbRank(long bb)
+        {
+            foreach(long rankNr in AllRanks)
+            {
+                if((bb & rankNr) != 0L) { return rankNr; }
+            }
+            return 0L;
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace Chess
 {
     public class King : Piece
     {
-        List<Moves> kingMoves = new List<Moves>();
+        public new static long[] movesLookUp = generateLookUp();
         public bool checkmate;
         public bool notMoved;
         public bool notInCheck;
@@ -23,7 +23,12 @@ namespace Chess
             this.kingsideRookNotMoved = true;
         }
 
-        public override List<Moves> generateMoves()
+        public static long[] generateLookUp()
+        {
+            return movesLookUp;
+        }
+
+        public long moveGeneration()
         {
             if(this.checkmate == false)
             {
@@ -38,9 +43,9 @@ namespace Chess
                     
                 }
             }
-            return kingMoves;
-        }
 
+            return 0L;
+        }
         private bool castlePossible(bool queenside)
         {
             // King not moved, not in check, rook not moved, castling squares not occupied or attacked

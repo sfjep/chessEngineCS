@@ -5,7 +5,7 @@ Pawn
 	<<8, 16
 	Captures to the sides
 	<<7,9
-	Enpasant
+	En passant
 	<<7,9
 
 Knight

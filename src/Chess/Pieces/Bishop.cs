@@ -4,7 +4,7 @@ namespace Chess
 {
     public class Bishop : Piece
     {
-        List<Moves> bishopMoves = new List<Moves>();
+        public new static long[] movesLookUp = generateLookUp();
         public int value;
 
         public Bishop(bool color, long bb)
@@ -14,9 +14,9 @@ namespace Chess
             this.value = 3;
         }
 
-        public override List<Moves> generateMoves()
+        public static long[] generateLookUp()
         {
-            return bishopMoves;
+            return movesLookUp;
         }
     }
 }

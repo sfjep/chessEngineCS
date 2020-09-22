@@ -6,7 +6,7 @@ namespace Chess
 {
     public abstract class Piece
     {
-        public abstract List<Moves> generateMoves();
+        public long[] movesLookUp;
         public bool color;
         public long bb;
 

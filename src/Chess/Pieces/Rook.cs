@@ -4,7 +4,7 @@ namespace Chess
 {
     public class Rook : Piece
     {
-        List<Moves> rookMoves = new List<Moves>();
+        public new static long[] movesLookUp = generateLookUp();
         public int value;
 
 
@@ -15,9 +15,9 @@ namespace Chess
             this.value = 5;
         }
 
-        public override List<Moves> generateMoves()
+        public static long[] generateLookUp()
         {
-            return rookMoves;
+            return movesLookUp;
         }
     }
 }

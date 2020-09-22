@@ -1,0 +1,9 @@
+& for intersection
+| for union
+^ for all but intersection
+
+Adding two bitboards for "all white pieces" and "all black pieces" might accelerate further computations.
+ You might also want to hold a database of bitboards representing the squares attacked by a certain piece on a certain square, 
+etc.; these constants come in handy at move generation time. 
+The main justification for bit boards is that a lot of useful operations can be performed using the processor's 
+instruction set's 1-cycle logical operators.

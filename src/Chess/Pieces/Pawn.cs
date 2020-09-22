@@ -4,7 +4,7 @@ namespace Chess
 {
     public class Pawn : Piece
     {
-        List<Moves> pawnMoves = new List<Moves>();
+        public new static long[] movesLookUp = generateLookUp();
         public int value;
 
         public Pawn(bool color, long bb)
@@ -14,9 +14,9 @@ namespace Chess
             this.value = 1;
         }
 
-        public override List<Moves> generateMoves()
+        public static long[] generateLookUp()
         {
-            return pawnMoves;
+            return movesLookUp;
         }
     }
 }

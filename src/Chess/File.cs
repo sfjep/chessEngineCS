@@ -12,12 +12,16 @@ namespace Chess
         public const long FILE_F = (1L<<5) | (1L<<13) | (1L<<21) | (1L<<29) | (1L<<37) | (1L<<45) | (1L<<53) | (1L<<61);
         public const long FILE_G = (1L<<6) | (1L<<14) | (1L<<22) | (1L<<30) | (1L<<38) | (1L<<46) | (1L<<54) | (1L<<62);
         public const long FILE_H = (1L<<7) | (1L<<15) | (1L<<23) | (1L<<31) | (1L<<39) | (1L<<47) | (1L<<55) | (1L<<63);
-        
-
-
-
-
-
+        public static List<long> AllFiles = new List<long>() {FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H};
         public static List<string> fileNames = new List<string>() {"a", "b", "c", "d", "e", "f", "g", "h"};
+
+        public static long bbRank(long bb)
+        {
+            foreach(long rankNr in AllRanks)
+            {
+                if((bb & rankNr) != 0L) { return rankNr; }
+            }
+            return 0L;
+        }
     }
 }
