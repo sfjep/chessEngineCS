@@ -4,7 +4,20 @@ namespace Chess
 {
     public class Board
     {
-        public long WK = 0L, WQ = 0L, WR = 0L, WN = 0L, WB = 0L, WP = 0L, BK = 0L, BQ = 0L, BR = 0L, BN = 0L, BB = 0L, BP = 0L;
+        public King WK = new King(true, 0L);
+        public Queen WQ = new Queen(true, 0L);
+        public Rook WR = new Rook(true, 0L);
+        public Bishop WB = new Bishop(true, 0L);
+        public Knight WN = new Knight(true, 0L);
+        public Pawn WP = new Pawn(true, 0L);
+        public King BK = new King(false, 0L);
+        public Queen BQ = new Queen(false, 0L);
+        public Rook BR = new Rook(false, 0L);
+        public Bishop BB = new Bishop(false, 0L);
+        public Knight BN = new Knight(false, 0L);
+        public Pawn BP = new Pawn(false, 0L);
+        public static string[,] chessBoard = new string[8,8];
+
 
         public Board()
         {
@@ -23,7 +36,7 @@ namespace Chess
             Moves.possibleMoves(initialChessBoard);
         }
 
-        public void arrayToBitboards(char[,] chessBoard, long WK, long WQ, long WR, long WN, long WB, long WP, long BK, long BQ, long BR, long BN, long BB, long BP)
+        public void arrayToBitboards(char[,] chessBoard, King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
         {
             for(int i = 0; i < 64; i++)
             {
@@ -32,29 +45,29 @@ namespace Chess
 
                 switch(chessBoard[i / 8, i % 8])
                 {
-                    case 'r': BR += convertStringToBitboard(bin);
+                    case 'r': BR.bb += convertStringToBitboard(bin);
                         break;
-                    case 'n': BN += convertStringToBitboard(bin);
+                    case 'n': BN.bb += convertStringToBitboard(bin);
                         break;
-                    case 'b': BB += convertStringToBitboard(bin);
+                    case 'b': BB.bb += convertStringToBitboard(bin);
                         break;
-                    case 'q': BQ += convertStringToBitboard(bin);
+                    case 'q': BQ.bb += convertStringToBitboard(bin);
                         break;
-                    case 'k': BK += convertStringToBitboard(bin);
+                    case 'k': BK.bb += convertStringToBitboard(bin);
                         break;
-                    case 'p': BP += convertStringToBitboard(bin);
+                    case 'p': BP.bb += convertStringToBitboard(bin);
                         break;
-                    case 'R': WR += convertStringToBitboard(bin);
+                    case 'R': WR.bb += convertStringToBitboard(bin);
                         break;
-                    case 'N': WN += convertStringToBitboard(bin);
+                    case 'N': WN.bb += convertStringToBitboard(bin);
                         break;
-                    case 'B': WB += convertStringToBitboard(bin);
+                    case 'B': WB.bb += convertStringToBitboard(bin);
                         break;
-                    case 'Q': WQ += convertStringToBitboard(bin);
+                    case 'Q': WQ.bb += convertStringToBitboard(bin);
                         break;
-                    case 'K': WK += convertStringToBitboard(bin);
+                    case 'K': WK.bb += convertStringToBitboard(bin);
                         break;
-                    case 'P': WP += convertStringToBitboard(bin);
+                    case 'P': WP.bb += convertStringToBitboard(bin);
                         break;
                    
                 }
@@ -67,30 +80,26 @@ namespace Chess
             return Convert.ToInt64(bin, 2);
         }
 
-        public static void drawBoardArray(long WK, long WQ, long WR, long WN, long WB, long WP, long BK, long BQ, long BR, long BN, long BB, long BP)
+        public static void drawBoardArray(King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
         {
-            string[,] chessBoard = new string[8,8];
-
             for(int i = 0; i < 64; i++)
             {
-                if (((WK>>i)&1)==1) { chessBoard[i / 8, i % 8] = "K"; }
-                if (((WQ>>i)&1)==1) { chessBoard[i / 8, i % 8] = "Q"; } 
-                if (((WR>>i)&1)==1) { chessBoard[i / 8, i % 8] = "R"; } 
-                if (((WN>>i)&1)==1) { chessBoard[i / 8, i % 8] = "N"; } 
-                if (((WB>>i)&1)==1) { chessBoard[i / 8, i % 8] = "B"; } 
-                if (((WP>>i)&1)==1) { chessBoard[i / 8, i % 8] = "P"; } 
-                if (((BK>>i)&1)==1) { chessBoard[i / 8, i % 8] = "k"; } 
-                if (((BQ>>i)&1)==1) { chessBoard[i / 8, i % 8] = "q"; } 
-                if (((BR>>i)&1)==1) { chessBoard[i / 8, i % 8] = "r"; } 
-                if (((BN>>i)&1)==1) { chessBoard[i / 8, i % 8] = "n"; } 
-                if (((BB>>i)&1)==1) { chessBoard[i / 8, i % 8] = "b"; } 
-                if (((BP>>i)&1)==1) { chessBoard[i / 8, i % 8] = "p"; } 
-                
+                if (((WK.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "K"; }
+                if (((WQ.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "Q"; } 
+                if (((WR.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "R"; } 
+                if (((WN.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "N"; } 
+                if (((WB.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "B"; } 
+                if (((WP.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "P"; } 
+                if (((BK.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "k"; } 
+                if (((BQ.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "q"; } 
+                if (((BR.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "r"; } 
+                if (((BN.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "n"; } 
+                if (((BB.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "b"; } 
+                if (((BP.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "p"; } 
+
                 if (String.IsNullOrEmpty(chessBoard[i / 8, i % 8])){chessBoard[i / 8, i % 8] = " ";}
             }
-
             printChessBoard(chessBoard);
-
         }
         public static void printChessBoard<T>(T[,] chessBoard)
         {

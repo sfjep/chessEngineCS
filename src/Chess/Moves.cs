@@ -6,9 +6,15 @@ namespace Chess
     public class Moves
     {
         static int positionWK, positionBK;
-        static List<string> fileNames = new List<string>() {"a", "b", "c", "d", "e", "f", "g", "h"};
-        static List<string> rankNames = new List<string>() {"1", "2", "3", "4", "5", "6", "7", "8"};
+        public List<long> movesWK = new List<long>();
+        public List<long> movesWQ = new List<long>();
+        public List<long> movesWR = new List<long>();
+        public List<long> movesWB = new List<long>();
+        public List<long> movesWN = new List<long>();
+        public List<long> movesWP = new List<long>();
         
+        public List<long> allMoves = new List<long>();
+
         public static String possibleMoves(char[,] chessBoard)
         {
             var moves = "";
@@ -62,8 +68,10 @@ namespace Chess
 
         private static string kingMoves(int i, char[,] chessBoard)
         {
+            
             // ADD CASTLING LATER
             string movesList = "";
+            /*
             string capturedPiece = "";
 
             int rank = i / 8;
@@ -121,13 +129,16 @@ namespace Chess
                 }
 
             }
-
+            */            
             return movesList;
+
         }
         private static string alternativeKingMoves(int i, char[,] chessBoard)
         {
             // ADD CASTLING LATER
             string movesList = "";
+            
+            var kingMoves = new List<int>() {9,8,7,1,-1,-7,-8,-9};
             
 
             return movesList;

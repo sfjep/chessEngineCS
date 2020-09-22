@@ -1,0 +1,34 @@
+
+generate moves:
+Pawn
+	If moved, only steps of 1
+	<<8, 16
+	Captures to the sides
+	<<7,9
+	Enpasant
+	<<7,9
+
+Knight
+	<<6, 10, 15, 17
+	>>6, 10, 15, 17
+
+Queen
+	sides<<-1,+1 until edge
+	up/down<<8,-8, until edge
+	diag<<7,9-7,-9 until edge
+
+Bishop
+	diag<<7,9-7,-9 until edge
+
+Rook
+	sides<<-1,+1 until edge
+	up/down<<8,-8, until edge
+	castle covered in king moves
+King
+	sides<<-1,+1 
+	up/down<<8,-8
+	diag<<7,9-7,-9 	
+	
+	If no moves by rook or king and possible: Castle
+		Kingside <<2
+		Queenside >>2
