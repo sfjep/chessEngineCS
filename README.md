@@ -2,6 +2,7 @@
 Sources of inspiration:
 - Logic Crazy Chess videos
 - https://www.gamedev.net/tutorials/_/technical/artificial-intelligence/chess-programming-part-i-getting-started-r1014/
+- https://www.cs.cornell.edu/boom/2004sp/ProjectArch/Chess/algorithms.html
 
 Notes to self:
 
