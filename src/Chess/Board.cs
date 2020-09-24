@@ -106,7 +106,7 @@ namespace Chess
             for(int i = 0; i < 64; i++)
             {
                 Console.WriteLine(i);
-                intToBoard(Bishop.movesLookUp[i]);
+                intToBoard(Rook.movesLookUp[i]);
 
             }
         }
