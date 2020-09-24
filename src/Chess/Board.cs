@@ -71,7 +71,6 @@ namespace Chess
                         break;
                     case 'P': WP.bb += convertStringToBitboard(bin);
                         break;
-                   
                 }
             }
             drawBoardArray(WK, WQ, WR, WN, WB, WP, BK, BQ, BR, BN, BB, BP);
@@ -105,8 +104,8 @@ namespace Chess
 
             for(int i = 0; i < 64; i++)
             {
-                Console.WriteLine(i);
-                intToBoard(Rook.movesLookUp[i]);
+                Console.WriteLine("Iteration: " + i.ToString());
+                intToBoard(Bishop.movesLookUp[i]);
 
             }
         }
