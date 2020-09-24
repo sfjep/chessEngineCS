@@ -8,8 +8,6 @@ namespace Chess
         public new static long[] movesLookUp = generateLookUp();
         public int value;
         private static Int64 startPosition = 0L;
-        private static long startRank = 0L;
-        private static long startFile = 0L;
         private static long  possibleMoves = 0L;
         private static long  newLocation = 0L;
         private static bool offBoardUpLeft = false;
@@ -32,8 +30,6 @@ namespace Chess
             for(int i = startShift; i < 64; i++)
             {
                 startPosition = 1L<<startShift;
-                startRank = Rank.bbRank(startPosition);
-                startFile = File.bbFile(startPosition);
 
                 possibleMoves = 0L;
                 newLocation = 0L;
