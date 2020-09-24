@@ -15,11 +15,11 @@ namespace Chess
         public static List<long> AllFiles = new List<long>() {FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H};
         public static List<string> fileNames = new List<string>() {"a", "b", "c", "d", "e", "f", "g", "h"};
 
-        public static long bbRank(long bb)
+        public static long bbFile(long bb)
         {
-            foreach(long rankNr in AllRanks)
+            foreach(long file in AllFiles)
             {
-                if((bb & rankNr) != 0L) { return rankNr; }
+                if((bb & file) != 0L) { return file; }
             }
             return 0L;
         }

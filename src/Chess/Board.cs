@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Text;
 
 namespace Chess
 {
@@ -17,7 +19,8 @@ namespace Chess
         public Knight BN = new Knight(false, 0L);
         public Pawn BP = new Pawn(false, 0L);
         public static string[,] chessBoard = new string[8,8];
-
+        private static string stringBoard;
+        private static int stringLengthDif;
 
         public Board()
         {
@@ -33,7 +36,9 @@ namespace Chess
             };
             arrayToBitboards(initialChessBoard, WK, WQ, WR, WN, WB, WP, BK, BQ, BR, BN, BB, BP);
 
-            Moves.possibleMoves(initialChessBoard);
+            // Moves.possibleMoves(initialChessBoard);
+
+
         }
 
         public void arrayToBitboards(char[,] chessBoard, King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
@@ -100,8 +105,13 @@ namespace Chess
                 if (String.IsNullOrEmpty(chessBoard[i / 8, i % 8])){chessBoard[i / 8, i % 8] = " ";}
             }
             printChessBoard(chessBoard);
-            intToBoard(Queen.movesLookUp[1]);
-            
+
+            for(int i = 0; i < 64; i++)
+            {
+                Console.WriteLine(i);
+                intToBoard(Queen.movesLookUp[i]);
+
+            }
         }
         public static void printChessBoard<T>(T[,] chessBoard)
         {
@@ -117,25 +127,27 @@ namespace Chess
 
         public static void intToBoard(long bb)
         {
-            string stringBoard = Convert.ToString(bb, 2);
-            string s1 = Reverse(stringBoard.Substring(0,8));
-            string s2 = Reverse(stringBoard.Substring(8,8));
-            string s3 = Reverse(stringBoard.Substring(16,8));
-            string s4 = Reverse(stringBoard.Substring(24,8));
-            string s5 = Reverse(stringBoard.Substring(32,8));
-            string s6 = Reverse(stringBoard.Substring(40,8));
-            string s7 = Reverse(stringBoard.Substring(48,8));
-            string s8 = Reverse(stringBoard.Substring(56));
-
+            if(bb < 0)
+            {
+                stringBoard = Convert.ToString(bb, 2);  
+            }
+            else
+            {
+                stringBoard = Convert.ToString(bb, 2);
+                
+                stringLengthDif = 64 - stringBoard.Length;
+                if(stringLengthDif != 0)
+                {
+                    stringBoard = string.Concat(Enumerable.Repeat("0", stringLengthDif)) + stringBoard;
+                }
+            }
+            
             Console.WriteLine(stringBoard.Length);
-            Console.WriteLine(s1);
-            Console.WriteLine(s2);
-            Console.WriteLine(s3);
-            Console.WriteLine(s4);
-            Console.WriteLine(s5);
-            Console.WriteLine(s6);
-            Console.WriteLine(s7);
-            Console.WriteLine(s8);
+            for(int i=0; i<8; i++)
+            {
+                string str = Reverse(stringBoard.Substring(i*8,8));
+                Console.WriteLine(str);
+            }
         }
 
         public static string Reverse( string s )
@@ -144,7 +156,5 @@ namespace Chess
             Array.Reverse( charArray );
             return new string( charArray );
         }
-
-        
     }
 }
