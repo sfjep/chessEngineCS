@@ -96,7 +96,6 @@ namespace Chess
                     if((newLocation & File.FILE_A) != 0L) { offBoardDownLeft = true; }
                            
                 }   
-                Console.WriteLine(possibleMoves);
                 queenMoves[startShift] = possibleMoves;
                 startShift++;
             }

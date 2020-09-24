@@ -36,9 +36,6 @@ namespace Chess
             };
             arrayToBitboards(initialChessBoard, WK, WQ, WR, WN, WB, WP, BK, BQ, BR, BN, BB, BP);
 
-            // Moves.possibleMoves(initialChessBoard);
-
-
         }
 
         public void arrayToBitboards(char[,] chessBoard, King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
@@ -109,7 +106,7 @@ namespace Chess
             for(int i = 0; i < 64; i++)
             {
                 Console.WriteLine(i);
-                intToBoard(Queen.movesLookUp[i]);
+                intToBoard(Bishop.movesLookUp[i]);
 
             }
         }
