@@ -9,6 +9,5 @@ namespace Chess
         public long[] movesLookUp;
         public bool color;
         public long bb;
-
     }
 }
