@@ -7,13 +7,15 @@ namespace Chess
     /// <summary>
     /// Main class for initializing chess board.
     /// A chess board contains bitboards from each piece type.
-    /// Bitboards are longs. Let a bitboard be a string of bits indexed from 0 to 64, then 
+    /// Bitboards are longs. Let a bitboard be a string of bits indexed from 0 to 63, then 
     /// the graphic rep of the board is:
     ///
     /// 00 01 02 03 04 05 06 07  
     /// 08 09 10 11 12 13 14 15
     /// ...
     /// 56 57 58 59 60 61 62 63
+    ///
+    /// 00 is square A8, 63 is square H1
     /// </summary>
     public class Board
     {
@@ -223,7 +225,7 @@ namespace Chess
         }
 
         /// <summary>
-        /// Reverse string so that iteration starts from square A8 (top left of the board)
+        /// Reverse string so that printing starts from square A8 (top left of the board)
         /// </summary>
         public static string Reverse(string s)
         {
