@@ -25,12 +25,11 @@ namespace Chess
         public static long[] generateLookUp()
         {
             long[] bishopMoves = new long[64];
-            var startShift = 0;
 
-            for(int i = startShift; i < 64; i++)
+            for(int i = 0; i < 64; i++)
             {
-                startPosition = 1L<<startShift;
-
+                startPosition = 1L<<i;
+                Console.WriteLine("i = " + i + " " + startPosition);
                 possibleMoves = 0L;
                 newLocation = 0L;
                 
@@ -70,8 +69,7 @@ namespace Chess
                     else{ offBoardDownLeft = true; }
                     if((newLocation & File.FILE_A) != 0L) { offBoardDownLeft = true; }               
                 }   
-                bishopMoves[startShift] = possibleMoves;
-                startShift++;
+                bishopMoves[i] = possibleMoves;
             }
             return bishopMoves;
         }

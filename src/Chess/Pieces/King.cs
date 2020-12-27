@@ -104,11 +104,11 @@ namespace Chess
         {
             if(this.queensideRookNotMoved)
             {
-                if(Board.chessBoard[7,0] != "R" && this.color == true)
+                if(Board.charBoard[7,0] != "R" && this.color == true)
                 {
                     this.queensideRookNotMoved = false; 
                 }
-                if(Board.chessBoard[0,0] != "r" && this.color == false)
+                if(Board.charBoard[0,0] != "r" && this.color == false)
                 {
                     this.queensideRookNotMoved = false; 
                 }
@@ -116,12 +116,12 @@ namespace Chess
 
             if(this.kingsideRookNotMoved)
             {
-                if(Board.chessBoard[7,7] != "R" && this.color == true)
+                if(Board.charBoard[7,7] != "R" && this.color == true)
                 {
                     this.kingsideRookNotMoved = false; 
                 }
 
-                if(Board.chessBoard[0,7] != "r" && this.color == false)
+                if(Board.charBoard[0,7] != "r" && this.color == false)
                 {
                     this.kingsideRookNotMoved = false; 
                 }

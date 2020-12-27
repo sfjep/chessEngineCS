@@ -18,7 +18,7 @@ namespace Chess
         public Bishop BB = new Bishop(false, 0L);
         public Knight BN = new Knight(false, 0L);
         public Pawn BP = new Pawn(false, 0L);
-        public static string[,] chessBoard = new string[8,8];
+        public static string[,] charBoard = new string[8,8];
         private static string stringBoard;
         private static int stringLengthDif;
 
@@ -38,14 +38,14 @@ namespace Chess
 
         }
 
-        public void arrayToBitboards(char[,] chessBoard, King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
+        public void arrayToBitboards(char[,] charBoard, King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
         {
             for(int i = 0; i < 64; i++)
             {
                 var bin = "0000000000000000000000000000000000000000000000000000000000000000"; 
                 bin = bin.Substring(i+1) + "1" + bin.Substring(0, i);
 
-                switch(chessBoard[i / 8, i % 8])
+                switch(charBoard[i / 8, i % 8])
                 {
                     case 'r': BR.bb += convertStringToBitboard(bin);
                         break;
@@ -85,38 +85,38 @@ namespace Chess
         {
             for(int i = 0; i < 64; i++)
             {
-                if (((WK.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "K"; }
-                if (((WQ.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "Q"; } 
-                if (((WR.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "R"; } 
-                if (((WN.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "N"; } 
-                if (((WB.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "B"; } 
-                if (((WP.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "P"; } 
-                if (((BK.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "k"; } 
-                if (((BQ.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "q"; } 
-                if (((BR.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "r"; } 
-                if (((BN.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "n"; } 
-                if (((BB.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "b"; } 
-                if (((BP.bb>>i)&1)==1) { chessBoard[i / 8, i % 8] = "p"; } 
+                if (((WK.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "K"; }
+                if (((WQ.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "Q"; } 
+                if (((WR.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "R"; } 
+                if (((WN.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "N"; } 
+                if (((WB.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "B"; } 
+                if (((WP.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "P"; } 
+                if (((BK.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "k"; } 
+                if (((BQ.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "q"; } 
+                if (((BR.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "r"; } 
+                if (((BN.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "n"; } 
+                if (((BB.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "b"; } 
+                if (((BP.bb>>i)&1)==1) { charBoard[i / 8, i % 8] = "p"; } 
 
-                if (String.IsNullOrEmpty(chessBoard[i / 8, i % 8])){chessBoard[i / 8, i % 8] = " ";}
+                if (String.IsNullOrEmpty(charBoard[i / 8, i % 8])){charBoard[i / 8, i % 8] = " ";}
             }
-            printChessBoard(chessBoard);
+            printChessBoard(charBoard);
 
             for(int i = 0; i < 64; i++)
             {
                 Console.WriteLine("Iteration: " + i.ToString());
                 intToBoard(Bishop.movesLookUp[i]);
-
             }
+            
         }
-        public static void printChessBoard<T>(T[,] chessBoard)
+        public static void printChessBoard<T>(T[,] charBoard)
         {
-            for (int i = 0; i < chessBoard.GetLength(0); i++)
+            for (int i = 0; i < charBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < chessBoard.GetLength(1); j++)
+                for (int j = 0; j < charBoard.GetLength(1); j++)
                 {
-                    Console.Write(chessBoard[i,j] + ",");
-                }
+                    Console.Write(charBoard[i,j] + ",");
+                } 
                 Console.WriteLine();
             }
         }
@@ -126,31 +126,35 @@ namespace Chess
             if(bb < 0)
             {
                 stringBoard = Convert.ToString(bb, 2);  
+                stringBoard = Reverse(stringBoard);
             }
             else
             {
                 stringBoard = Convert.ToString(bb, 2);
                 
                 stringLengthDif = 64 - stringBoard.Length;
+                
                 if(stringLengthDif != 0)
                 {
                     stringBoard = string.Concat(Enumerable.Repeat("0", stringLengthDif)) + stringBoard;
                 }
+
+                stringBoard = Reverse(stringBoard);
             }
-            
-            Console.WriteLine(stringBoard.Length);
+
             for(int i=0; i<8; i++)
             {
-                string str = Reverse(stringBoard.Substring(i*8,8));
+                string str = stringBoard.Substring(i*8,8);
                 Console.WriteLine(str);
             }
         }
-
+        
         public static string Reverse( string s )
         {
             char[] charArray = s.ToCharArray();
             Array.Reverse( charArray );
             return new string( charArray );
         }
+        
     }
 }
