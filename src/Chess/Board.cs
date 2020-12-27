@@ -4,6 +4,17 @@ using System.Text;
 
 namespace Chess
 {
+    /// <summary>
+    /// Main class for initializing chess board.
+    /// A chess board contains bitboards from each piece type.
+    /// Bitboards are longs. Let a bitboard be a string of bits indexed from 0 to 64, then 
+    /// the graphic rep of the board is:
+    ///
+    /// 07 06 05 04 03 02 01 00  
+    /// 15 14 13 12 11 10 09 08
+    /// ...
+    /// 63 62 61 60 59 58 57 56
+    /// </summary>
     public class Board
     {
         public King WK = new King(true, 0L);
@@ -22,6 +33,9 @@ namespace Chess
         private static string stringBoard;
         private static int stringLengthDif;
 
+        /// <summary>
+        /// Initializes board in starting positions
+        /// </summary>
         public Board()
         {
             char[,] initialChessBoard = {
@@ -34,10 +48,14 @@ namespace Chess
                 {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
                 {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}  
             };
-            arrayToBitboards(initialChessBoard, WK, WQ, WR, WN, WB, WP, BK, BQ, BR, BN, BB, BP);
+            arrayToBitboards(initialChessBoard);
 
         }
 
+        /// <summary>
+        /// <param name="chessBoard"> Array of chars in starting position in graphic representation (as above). Uppercase indicate  white, lowercase black pieces.</param>
+        /// Method iterates through char array and adds a piece to the bitboard according to its graphic rep.
+        /// </summary>
         public void arrayToBitboards(char[,] chessBoard, King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
         {
             for(int i = 0; i < 64; i++)
@@ -76,11 +94,20 @@ namespace Chess
             drawBoardArray(WK, WQ, WR, WN, WB, WP, BK, BQ, BR, BN, BB, BP);
         }
 
+        /// <summary>
+        /// <param name="bin"> String of 0s and 1s of length 64.</param>
+        /// Returns a long.
+        /// </summary>
         private long convertStringToBitboard(string bin)
         {
             return Convert.ToInt64(bin, 2);
         }
 
+        /// <summary>
+        /// <param name="chessBoard"> Array of chars in starting position in graphic representation (as above). Uppercase indicate  white, lowercase black pieces.</param>
+        /// Takes pieces as params to initialize their bitboards (referred to as bb).
+        /// Method iterates through char array and adds a piece to the bitboard according to its graphic rep.
+        /// </summary>
         public static void drawBoardArray(King WK, Queen WQ, Rook WR, Knight WN, Bishop WB, Pawn WP, King BK, Queen BQ, Rook BR, Knight BN, Bishop BB, Pawn BP)
         {
             for(int i = 0; i < 64; i++)
