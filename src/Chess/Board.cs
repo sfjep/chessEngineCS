@@ -200,6 +200,7 @@ namespace Chess
             if (bb < 0)
             {
                 stringBoard = Convert.ToString(bb, 2);
+                stringBoard = Reverse(stringBoard);
             }
             else
             {
@@ -210,12 +211,13 @@ namespace Chess
                 {
                     stringBoard = string.Concat(Enumerable.Repeat("0", stringLengthDif)) + stringBoard;
                 }
+
+                stringBoard = Reverse(stringBoard);
             }
 
-            Console.WriteLine(stringBoard.Length);
             for (int i = 0; i < 8; i++)
             {
-                string str = Reverse(stringBoard.Substring(i * 8, 8));
+                string str = stringBoard.Substring(i * 8, 8);
                 Console.WriteLine(str);
             }
         }
@@ -229,5 +231,6 @@ namespace Chess
             Array.Reverse(charArray);
             return new string(charArray);
         }
+
     }
 }
