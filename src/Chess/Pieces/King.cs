@@ -30,17 +30,17 @@ namespace Chess
 
         public long moveGeneration()
         {
-            if(this.checkmate == false)
+            if (this.checkmate == false)
             {
                 // queenside possible?
-                if(castlePossible(true))
+                if (castlePossible(true))
                 {
-                    
+
                 }
                 // kingside possible?
-                if(castlePossible(false))
+                if (castlePossible(false))
                 {
-                    
+
                 }
             }
 
@@ -49,7 +49,7 @@ namespace Chess
         private bool castlePossible(bool queenside)
         {
             // King not moved, not in check, rook not moved, castling squares not occupied or attacked
-            if(this.notMoved && this.notInCheck && rookNotMoved(queenside) && castlingSquaresNotOccupied(queenside) && castlingSquaresNotCoveredByOpponent(queenside))
+            if (this.notMoved && this.notInCheck && rookNotMoved(queenside) && castlingSquaresNotOccupied(queenside) && castlingSquaresNotCoveredByOpponent(queenside))
             {
                 return true;
             }
@@ -58,12 +58,12 @@ namespace Chess
 
         private bool castlingSquaresNotOccupied(bool queenside)
         {
-            if(queenside)
+            if (queenside)
             {
                 // is the squares NOT occupied on the queenside
                 return true;
             }
-            else if(!queenside)
+            else if (!queenside)
             {
                 return true;
             }
@@ -72,12 +72,12 @@ namespace Chess
 
         private bool castlingSquaresNotCoveredByOpponent(bool queenside)
         {
-            if(queenside)
+            if (queenside)
             {
                 // is the squares NOT covered by opponent on the queenside
                 return true;
             }
-            else if(!queenside)
+            else if (!queenside)
             {
                 return true;
             }
@@ -89,11 +89,11 @@ namespace Chess
             // update if any rook has moved
             checkBoardForRookMoves();
 
-            if(queenside && this.queensideRookNotMoved)
+            if (queenside && this.queensideRookNotMoved)
             {
                 return true;
             }
-            else if(!queenside && this.kingsideRookNotMoved)
+            else if (!queenside && this.kingsideRookNotMoved)
             {
                 return true;
             }
@@ -102,28 +102,28 @@ namespace Chess
 
         private void checkBoardForRookMoves()
         {
-            if(this.queensideRookNotMoved)
+            if (this.queensideRookNotMoved)
             {
-                if(Board.chessBoard[7,0] != "R" && this.color == true)
+                if (Board.charBoard[7, 0] != "R" && this.color == true)
                 {
-                    this.queensideRookNotMoved = false; 
+                    this.queensideRookNotMoved = false;
                 }
-                if(Board.chessBoard[0,0] != "r" && this.color == false)
+                if (Board.charBoard[0, 0] != "r" && this.color == false)
                 {
-                    this.queensideRookNotMoved = false; 
+                    this.queensideRookNotMoved = false;
                 }
             }
 
-            if(this.kingsideRookNotMoved)
+            if (this.kingsideRookNotMoved)
             {
-                if(Board.chessBoard[7,7] != "R" && this.color == true)
+                if (Board.charBoard[7, 7] != "R" && this.color == true)
                 {
-                    this.kingsideRookNotMoved = false; 
+                    this.kingsideRookNotMoved = false;
                 }
 
-                if(Board.chessBoard[0,7] != "r" && this.color == false)
+                if (Board.charBoard[0, 7] != "r" && this.color == false)
                 {
-                    this.kingsideRookNotMoved = false; 
+                    this.kingsideRookNotMoved = false;
                 }
             }
         }
