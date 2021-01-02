@@ -20,16 +20,15 @@ namespace Chess
         public static long[] generateLookUp()
         {
             long[] knightMoves = new long[64];
-            var startShift = 0;
             List<int> knigthShifts_A_File = new List<int>() {-15, -6, 10, 17};
             List<int> knigthShifts_B_File = new List<int>() {15, 17, 10, -6, -15, -17};
             List<int> knigthShifts_G_File = new List<int>() {-10, -15, -17, 6, 15, 17};
             List<int> knigthShifts_H_File = new List<int>() {6, 15, -10, -17};
             List<int> knigthShifts_CDEF = new List<int>() {6, 10, 15, 17, -6, -10, -15, -17};
             
-            for(int i = startShift; i < 64; i++)
+            for(int i = 0; i < 64; i++)
             {
-                startPosition = 1L<<startShift;
+                startPosition = 1L<<i;
                 possibleMoves = 0L;
                 
                 if((startPosition & File.FILE_A)!=0L) { getMovesFromFile(startPosition, knigthShifts_A_File, i); }
@@ -37,8 +36,7 @@ namespace Chess
                 else if((startPosition & File.FILE_G)!=0L) { getMovesFromFile(startPosition, knigthShifts_G_File, i); }
                 else if((startPosition & File.FILE_H)!=0L) { getMovesFromFile(startPosition, knigthShifts_H_File, i); }
                 else { getMovesFromFile(startPosition, knigthShifts_CDEF, i); }
-                knightMoves[startShift] = possibleMoves;
-                startShift++;
+                knightMoves[i] = possibleMoves;
             }
             return knightMoves;
         }

@@ -29,7 +29,6 @@ namespace Chess
             for(int i = 0; i < 64; i++)
             {
                 startPosition = 1L<<i;
-                Console.WriteLine("i = " + i + " " + startPosition);
                 possibleMoves = 0L;
                 newLocation = 0L;
                 

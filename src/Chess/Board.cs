@@ -88,6 +88,13 @@ namespace Chess
             };
             charBoard = initialCharBoard;
             arrayToBitboards();
+
+            for(int i = 0; i < 64; i++)
+            {
+                Console.WriteLine(i);
+                printBitBoard(Queen.movesLookUp[i]);
+
+            }
         }
 
         /// <summary>
@@ -174,6 +181,8 @@ namespace Chess
                 if (String.IsNullOrEmpty(charBoard[i / 8, i % 8])) { charBoard[i / 8, i % 8] = " "; }
             }
             printCharBoard();
+
+            
         }
 
         /// <summary>
@@ -231,6 +240,6 @@ namespace Chess
             Array.Reverse(charArray);
             return new string(charArray);
         }
-
+            
     }
 }

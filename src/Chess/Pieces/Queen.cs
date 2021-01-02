@@ -28,11 +28,10 @@ namespace Chess
         public static long[] generateLookUp()
         {
             long[] queenMoves = new long[64];
-            var startShift = 0;
 
-            for(int i = startShift; i < 64; i++)
+            for(int i = 0; i < 64; i++)
             {
-                startPosition = 1L<<startShift;
+                startPosition = 1L<<i;
                 startRank = Rank.bbRank(startPosition);
                 startFile = File.bbFile(startPosition);
 
@@ -96,8 +95,7 @@ namespace Chess
                     if((newLocation & File.FILE_A) != 0L) { offBoardDownLeft = true; }
                            
                 }   
-                queenMoves[startShift] = possibleMoves;
-                startShift++;
+                queenMoves[i] = possibleMoves;
             }
             return queenMoves;
         }
