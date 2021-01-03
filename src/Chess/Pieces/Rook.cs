@@ -5,8 +5,8 @@ namespace Chess
 {
     public class Rook : Piece
     {
-        static Rook() { movesLookUp = generateLookUp(); }
-
+        public new static long[] movesLookUp = generateLookUp();
+        
         public Rook(bool color)
         {
             this.color = color;

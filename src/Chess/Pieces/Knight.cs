@@ -7,7 +7,7 @@ namespace Chess
     {
         private static long startPosition = 0L;
         private static long possibleMoves = 0L;
-        static Knight() { movesLookUp = generateLookUp(); }
+        public new static long[] movesLookUp = generateLookUp();
 
         public Knight(bool color)
         {

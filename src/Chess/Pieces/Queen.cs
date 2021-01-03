@@ -5,7 +5,7 @@ namespace Chess
 {
     public class Queen : Piece
     {
-        static Queen() { movesLookUp = generateLookUp(); }
+        public new static long[] movesLookUp = generateLookUp();
 
         public Queen(bool color)
         {

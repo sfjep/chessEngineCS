@@ -12,7 +12,7 @@ namespace Chess
         public bool queensideRookNotMoved;
         public bool kingsideRookNotMoved;
 
-        static King() { movesLookUp = generateLookUp(); }
+        public new static long[] movesLookUp = generateLookUp();
 
         public King(bool color)
         {

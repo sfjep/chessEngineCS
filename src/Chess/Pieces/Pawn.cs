@@ -5,6 +5,7 @@ namespace Chess
 {
     public class Pawn : Piece
     {
+        public new static long[] movesLookUp = generateLookUp();
         private static Int64 startPosition = 0L;
         private static long startRank = 0L;
         private static long startFile = 0L;
@@ -12,8 +13,6 @@ namespace Chess
         private static long newLocation = 0L;
         private static bool offBoardUpLeft = false;
         private static bool offBoardUpRight = false;
-
-        static Pawn() { movesLookUp = generateLookUp(); }
 
         public Pawn(bool color)
         {
@@ -44,6 +43,8 @@ namespace Chess
 
                 possibleMoves = 0L;
                 newLocation = 0L;
+
+                
 
                 // A pawn can at maximum move two steps ahead
 
