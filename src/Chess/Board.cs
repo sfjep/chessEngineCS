@@ -22,18 +22,19 @@ namespace Chess
         /// <summary>
         /// Instanciate pieces 
         /// </summary>
-        public King WK = new King(true);
-        public Queen WQ = new Queen(true);
         public Rook WR = new Rook(true);
         public Bishop WB = new Bishop(true);
         public Knight WN = new Knight(true);
         public Pawn WP = new Pawn(true);
-        public King BK = new King(false);
-        public Queen BQ = new Queen(false);
+        public King WK = new King(true);
+        public Queen WQ = new Queen(true);
         public Rook BR = new Rook(false);
         public Bishop BB = new Bishop(false);
         public Knight BN = new Knight(false);
         public Pawn BP = new Pawn(false);
+        public King BK = new King(false);
+        public Queen BQ = new Queen(false);
+
 
         public static string[,] charBoard = new string[8, 8];
         private static int stringLengthDif;
@@ -42,8 +43,7 @@ namespace Chess
         /// Initializes board in starting positions
         /// </summary>
         public Board()
-        {            
-            
+        {
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Chess
             }
             printCharBoard();
 
-            
+
         }
 
         /// <summary>
@@ -122,9 +122,9 @@ namespace Chess
             for (int i = 0; i < 8; i++)
             {
                 int length = stringBoard.Length;
-                string str = stringBoard.Substring(56-(i * 8), 8);
+                string str = stringBoard.Substring(56 - (i * 8), 8);
                 Console.WriteLine(str);
             }
-        }            
+        }
     }
 }

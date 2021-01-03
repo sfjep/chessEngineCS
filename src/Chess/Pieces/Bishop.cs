@@ -6,9 +6,6 @@ namespace Chess
 {
     public class Bishop : Piece
     {
-        public new static long[] movesLookUp = generateLookUp();
-        public int value;
-
         static Bishop() { movesLookUp = generateLookUp(); }
 
         public Bishop(bool color)

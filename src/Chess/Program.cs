@@ -8,11 +8,11 @@ namespace Chess
         {
             Board board = new Board();
 
-            for (int i = 0; i < 64; i++)
-            {
-                Console.WriteLine(i);
-                Board.printBitBoard(Queen.movesLookUp[i]);
-            }
+            // for (int i = 0; i < 64; i++)
+            // {
+            //     Console.WriteLine(i);
+            //     Board.printBitBoard(Queen.movesLookUp[i]);
+            // }
         }
     }
 }
