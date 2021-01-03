@@ -24,11 +24,10 @@ namespace Chess
 public static long[] generateLookUp()
         {
             long[] rookMoves = new long[64];
-            var startShift = 0;
 
-            for(int i = startShift; i < 64; i++)
+            for(int i = 0; i < 64; i++)
             {
-                startPosition = 1L<<startShift;
+                startPosition = 1L<<i;
                 startRank = Rank.bbRank(startPosition);
                 startFile = File.bbFile(startPosition);
 
@@ -58,8 +57,7 @@ public static long[] generateLookUp()
                     if(i == 63) { newLocation = -newLocation; }
                     possibleMoves += newLocation;                           
                 }   
-                rookMoves[startShift] = possibleMoves;
-                startShift++;
+                rookMoves[i] = possibleMoves;
             }
             return rookMoves;
         }
