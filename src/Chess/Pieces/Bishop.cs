@@ -14,7 +14,7 @@ namespace Chess
             this.color = color;
 
             // if white
-            if(color == true)
+            if (color == true)
             {
                 this.bb = (Squares.FILE_C | Squares.FILE_F) & Squares.RANK_1;
             }
@@ -26,7 +26,7 @@ namespace Chess
             this.value = 3;
         }
 
-  
+
         public static long[] generateLookUp()
         {
             long[] bishopMoves = new long[64];
@@ -34,50 +34,36 @@ namespace Chess
             long possibleMoves;
             long newLocation;
 
-            for (int index = 0; index < 64; index++)
+            for (int i = 0; i < 64; i++)
             {
-                piecePosition = 1L << index;
+                piecePosition = 1L << (63 - i);
+                int leftOffset = i % 8;
+                int rightOffset = 7 - leftOffset;
                 possibleMoves = 0L;
-                newLocation = 0L;
-                
-                // Diagonal moves. Any piece can maximum move 7 steps in any direction 
-                for(int factor = 1; factor < 8; factor++)
+
+                for (int j = 1; j <= leftOffset; j++)
                 {
-                    // Go up & right, we shift right by 9
-                    newLocation = piecePosition<<(factor*9);  
+                    // Go up left, shift right by 7
+                    newLocation = piecePosition >> 7 * j;
+                    possibleMoves += newLocation;
 
-                    // If we did not move off the board, add new location to possibleMoves       
-                    if((index % 8) < ((index + factor * 9) % 8))
-                    {                 
-                        // if(index == 63) { newLocation = -newLocation; }
-                        possibleMoves += newLocation; 
-                    }
-
-                    // Go up & left, we shift right by 7
-                    newLocation = piecePosition<<(factor * 7);            
-                    if((index % 8) > ((index + factor * 7) % 8)) 
-                    {                 
-                        // if(index == 63) { newLocation = -newLocation; }
-                        possibleMoves += newLocation; 
-                    }
-
-                    // Go down & right, we shift left by 7
-                    newLocation = piecePosition>>(factor * 7);            
-                    if((index % 8) < ((index + factor * 7) % 8)) 
-                    {                 
-                        // if(index == 63) { newLocation = -newLocation; }
-                        possibleMoves += newLocation; 
-                    }
-
-                    // Go down & left, we shift left by 9
-                    newLocation = piecePosition>>(factor * 9);            
-                    if((index % 8) > ((index + factor * 9) % 8)) 
-                    {                 
-                        // if(index == 63) { newLocation = -newLocation; }
-                        possibleMoves += newLocation; 
-                    }
+                    // Go down left, shift left by 9
+                    newLocation = piecePosition << 9 * j;
+                    possibleMoves += newLocation;
                 }
-                bishopMoves[63 - index] = possibleMoves;
+
+                for (int j = 1; j <= rightOffset; j++)
+                {
+                    // Go up right, shift right by 9
+                    newLocation = piecePosition >> 7 * j;
+                    possibleMoves += newLocation;
+
+                    // Go down right, shift left by 7
+                    newLocation = piecePosition << 9 * j;
+                    possibleMoves += newLocation;
+                }
+
+                bishopMoves[i] = possibleMoves;
             }
             return bishopMoves;
         }
