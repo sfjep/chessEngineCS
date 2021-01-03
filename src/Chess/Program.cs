@@ -11,7 +11,7 @@ namespace Chess
             for(int i = 0; i < 64; i++)
             {
                 Console.WriteLine(i);
-                Board.printBitBoard(Bishop.movesLookUp[i]);
+                Board.printBitBoard(Queen.movesLookUp[i]);
             }    
         }
     }

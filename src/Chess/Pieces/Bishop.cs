@@ -36,8 +36,8 @@ namespace Chess
         /// For each of the 64 possible locations for the bishop, we gather all the squares the bishop can move to
         /// Diagonal moves are found by shifting by an offset of 7 or 9 scaled by a factor from 1-7, as a piece can only move 7 steps in any direction 
         /// For each index, we take modulo 8. This gives us the file number with 0-index. 
-        /// Say the queen moves up and to the right. The index of the new location must have a modulo greater than the starting point.
-        /// Otherwise, the queen moved off the board, and ended up on the A-file. 
+        /// Say the bishop moves up and to the right. The index of the new location must have a modulo greater than the starting point.
+        /// Otherwise, the bishop moved off the board, and ended up on the A-file. 
         /// The modulo must be less than the starting point if moving up and left. 
         /// </summary>
         public static long[] generateLookUp()
