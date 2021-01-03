@@ -8,13 +8,6 @@ namespace Chess
     {
         public new static long[] movesLookUp = generateLookUp();
         public int value;
-        private static Int64 startPosition = 0L;
-        private static long possibleMoves = 0L;
-        private static long newLocation = 0L;
-        private static bool offBoardUpLeft = false;
-        private static bool offBoardDownLeft = false;
-        private static bool offBoardUpRight = false;
-        private static bool offBoardDownRight = false;
 
         public Bishop(bool color)
         {
@@ -37,50 +30,54 @@ namespace Chess
         public static long[] generateLookUp()
         {
             long[] bishopMoves = new long[64];
+            long piecePosition;
+            long possibleMoves;
+            long newLocation;
 
-            for (int i = 0; i < 64; i++)
+            for (int index = 0; index < 64; index++)
             {
-                startPosition = 1L << i;
+                piecePosition = 1L << index;
                 possibleMoves = 0L;
                 newLocation = 0L;
-
-                offBoardUpLeft = false;
-                offBoardDownLeft = false;
-                offBoardUpRight = false;
-                offBoardDownRight = false;
-
-                // Any piece can maximum move 7 steps in any direction 
-                for (int j = 1; j < 8; j++)
+                
+                // Diagonal moves. Any piece can maximum move 7 steps in any direction 
+                for(int factor = 1; factor < 8; factor++)
                 {
-                    // Go up & right
-                    newLocation = startPosition << (j * 9);
-                    if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & Squares.FILE_A) == 0L) && !offBoardUpRight) { possibleMoves += newLocation; }
-                    else { offBoardUpRight = true; }
-                    if ((newLocation & Squares.FILE_H) != 0L) { offBoardUpRight = true; }
+                    // Go up & right, we shift right by 9
+                    newLocation = piecePosition<<(factor*9);  
 
-                    // Go up & left
-                    newLocation = startPosition << (j * 7);
-                    if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & Squares.FILE_H) == 0L) && !offBoardUpLeft) { possibleMoves += newLocation; }
-                    else { offBoardUpLeft = true; }
-                    if ((newLocation & Squares.FILE_A) != 0L) { offBoardUpLeft = true; }
+                    // If we did not move off the board, add new location to possibleMoves       
+                    if((index % 8) < ((index + factor * 9) % 8))
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
 
-                    // Go down & right
-                    newLocation = startPosition >> (j * 7);
-                    if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & Squares.FILE_A) == 0L) && !offBoardDownRight) { possibleMoves += newLocation; }
-                    else { offBoardDownRight = true; }
-                    if ((newLocation & Squares.FILE_H) != 0L) { offBoardDownRight = true; }
+                    // Go up & left, we shift right by 7
+                    newLocation = piecePosition<<(factor * 7);            
+                    if((index % 8) > ((index + factor * 7) % 8)) 
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
 
-                    // Go down & left
-                    newLocation = startPosition >> (j * 9);
-                    if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & Squares.FILE_H) == 0L) && !offBoardDownLeft) { possibleMoves += newLocation; }
-                    else { offBoardDownLeft = true; }
-                    if ((newLocation & Squares.FILE_A) != 0L) { offBoardDownLeft = true; }
+                    // Go down & right, we shift left by 7
+                    newLocation = piecePosition>>(factor * 7);            
+                    if((index % 8) < ((index + factor * 7) % 8)) 
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
+
+                    // Go down & left, we shift left by 9
+                    newLocation = piecePosition>>(factor * 9);            
+                    if((index % 8) > ((index + factor * 9) % 8)) 
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
                 }
-                bishopMoves[i] = possibleMoves;
+                bishopMoves[63 - index] = possibleMoves;
             }
             return bishopMoves;
         }

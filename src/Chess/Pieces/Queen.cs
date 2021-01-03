@@ -7,16 +7,6 @@ namespace Chess
     {
         public new static long[] movesLookUp = generateLookUp();
         public int value;
-        private static Int64 startPosition = 0L;
-        private static long startRank = 0L;
-        private static long startFile = 0L;
-        private static long  possibleMoves = 0L;
-        private static long  newLocation = 0L;
-        private static bool offBoardUpLeft = false;
-        private static bool offBoardDownLeft = false;
-        private static bool offBoardUpRight = false;
-        private static bool offBoardDownRight = false;
-
 
         public Queen(bool color)
         {
@@ -34,78 +24,89 @@ namespace Chess
             this.value = 9;
         }
 
+        /// <summary>
+        /// "queenMoves": An array of bitboard of length 64. Each element represents possible moves from position i.
+        /// "piecePosition": Bitboard of possible locations on the board.
+        /// "pieceRank": Bitboard of the rank of the piece location.
+        /// "pieceFile": Bitboard of filee of the piece location.
+        /// "possibleMoves": Bitboard of possible moves from a given location.
+        /// "newLocation": Bitboard of the new location after the move from starting location.
+        /// 
+        /// For each of the 64 possible locations for the queen, we gather all the squares the queen can move to
+        /// Horizontal and vertical moves are found using pieceRank and pieceFile
+        /// Diagonal moves are found by shifting by an offset of 7 or 9 scaled by a factor from 1-7, as a piece can only move 7 steps in any direction 
+        /// For each index, we take modulo 8. This gives us the file number with 0-index. 
+        /// Say the queen moves up and to the right. The index of the new location must have a modulo greater than the starting point.
+        /// Otherwise, the queen moved off the board, and ended up on the A-file. 
+        /// The modulo must be less than the starting point if moving up and left. 
+        /// </summary>
         public static long[] generateLookUp()
         {
             long[] queenMoves = new long[64];
-
-            for(int i = 0; i < 64; i++)
+            long piecePosition;
+            long pieceRank;
+            long pieceFile;
+            long possibleMoves;
+            long newLocation;
+            
+            for(int index = 0; index < 64; index++)
             {
-                startPosition = 1L<<i;
-                startRank = Squares.bitboardToRank(startPosition);
-                startFile = Squares.bitboardToFile(startPosition);
+                piecePosition = 1L<<index;
+                pieceRank = Squares.bitboardToRank(piecePosition);
+                pieceFile = Squares.bitboardToFile(piecePosition);
 
                 possibleMoves = 0L;
                 newLocation = 0L;
                 
-                offBoardUpLeft = false;
-                offBoardDownLeft = false;
-                offBoardUpRight = false;
-                offBoardDownRight = false;
+                // All horizontal and vertical moves
+                newLocation = (piecePosition ^ pieceRank) | (piecePosition ^ pieceFile);
                 
-                // Any piece can maximum move 7 steps in any direction 
-                for(int j = 1; j < 8; j++)
+                // If last iteration, wrong sign - change to positive
+                // if(index == 63) { newLocation = -newLocation; }
+
+                // Add bitboard to possible moves
+                possibleMoves += newLocation;
+
+                // Diagonal moves. Any piece can maximum move 7 steps in any direction 
+                for(int factor = 1; factor < 8; factor++)
                 {
-                    // Go left
-                    newLocation = startPosition>>j;
-                    if(i == 63) { newLocation = -newLocation; }
-                    if((newLocation & startRank) != 0L) { possibleMoves += newLocation; }
-                    
-                    // Go right
-                    newLocation = startPosition<<j;
-                    if(i == 63) { newLocation = -newLocation; }
-                    if((newLocation & startRank) != 0L) { possibleMoves += newLocation; }
+                    // Go up & right, we shift right by 9
+                    newLocation = piecePosition>>(factor*9);  
 
-                    // Go up
-                    newLocation = startPosition<<(j*8);
-                    if(i == 63) { newLocation = -newLocation; }
-                    possibleMoves += newLocation;
+                    // If we did not move off the board, add new location to possibleMoves       
+                    if((index % 8) > ((index + factor * 9) % 8))
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
 
-                    // Go down
-                    newLocation = startPosition>>(j*8);
-                    if(i == 63) { newLocation = -newLocation; }
-                    possibleMoves += newLocation;
+                    // Go up & left, we shift right by 7
+                    newLocation = piecePosition>>(factor * 7);            
+                    if((index % 8) < ((index + factor * 7) % 8)) 
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
 
-                    // Go up & right
-                    newLocation = startPosition<<(j*9);
-                    if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & Squares.FILE_A) == 0L) && !offBoardUpRight) { possibleMoves += newLocation; }
-                    else{ offBoardUpRight = true; }
-                    if((newLocation & Squares.FILE_H) != 0L) { offBoardUpRight = true; }
+                    // Go down & right, we shift left by 7
+                    newLocation = piecePosition<<(factor * 7);            
+                    if((index % 8) < ((index + factor * 7) % 8)) 
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }
 
-                    // Go up & left
-                    newLocation = startPosition<<(j*7);
-                    if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & Squares.FILE_H) == 0L) && !offBoardUpLeft) { possibleMoves += newLocation; }
-                    else{ offBoardUpLeft = true; }
-                    if((newLocation & Squares.FILE_A) != 0L) { offBoardUpLeft = true; }
-
-                    // Go down & right
-                    newLocation = startPosition>>(j*7);
-                    if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & Squares.FILE_A) == 0L) && !offBoardDownRight) { possibleMoves += newLocation; }
-                    else{ offBoardDownRight = true; }
-                    if((newLocation & Squares.FILE_H) != 0L) { offBoardDownRight = true; }
-
-                    // Go down & left
-                    newLocation = startPosition>>(j*9);
-                    if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & Squares.FILE_H) == 0L) && !offBoardDownLeft) { possibleMoves += newLocation; }     
-                    else{ offBoardDownLeft = true; }
-                    if((newLocation & Squares.FILE_A) != 0L) { offBoardDownLeft = true; }
-                           
-                }   
-                queenMoves[i] = possibleMoves;
+                    // Go down & left, we shift left by 9
+                    newLocation = piecePosition<<(factor * 9);            
+                    if((index % 8) < ((index + factor * 9) % 8)) 
+                    {                 
+                        // if(index == 63) { newLocation = -newLocation; }
+                        possibleMoves += newLocation; 
+                    }           
+                }  
+                queenMoves[63-index] = possibleMoves;
             }
+            
             return queenMoves;
         }
     }

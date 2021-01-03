@@ -48,6 +48,7 @@ namespace Chess
                 // A pawn can at maximum move two steps ahead
                               
                 // If white
+                /*
                 if(this.color == true)
                 {
                     if(startRank == 2)
@@ -70,6 +71,7 @@ namespace Chess
 
                 if(i == 63) { newLocation = -newLocation; }
                 possibleMoves += newLocation;
+            */
             }
             return movesLookUp;
         }

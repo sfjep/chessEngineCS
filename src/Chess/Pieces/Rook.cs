@@ -7,12 +7,6 @@ namespace Chess
     {
         public new static long[] movesLookUp = generateLookUp();
         public int value;
-        private static Int64 startPosition = 0L;
-        private static long startRank = 0L;
-        private static long startFile = 0L;
-        private static long  possibleMoves = 0L;
-        private static long  newLocation = 0L;
-
 
         public Rook(bool color)
         {
@@ -34,39 +28,29 @@ public static long[] generateLookUp()
         {
             long[] rookMoves = new long[64];
 
-            for(int i = 0; i < 64; i++)
+            long piecePosition;
+            long pieceRank;
+            long pieceFile;
+            long possibleMoves;
+            long newLocation;
+            
+            for(int index = 0; index < 64; index++)
             {
-                startPosition = 1L<<i;
-                startRank = Squares.bitboardToRank(startPosition);
-                startFile = Squares.bitboardToFile(startPosition);
+                piecePosition = 1L<<index;
+                pieceRank = Squares.bitboardToRank(piecePosition);
+                pieceFile = Squares.bitboardToFile(piecePosition);
 
                 possibleMoves = 0L;
                 newLocation = 0L;
 
-                // Any piece can maximum move 7 steps in any direction 
-                for(int j = 1; j < 8; j++)
-                {
-                    // Go left
-                    newLocation = startPosition>>j;
-                    if(i == 63) { newLocation = -newLocation; }
-                    if((newLocation & startRank) != 0L) { possibleMoves += newLocation; }
-                    
-                    // Go right
-                    newLocation = startPosition<<j;
-                    if(i == 63) { newLocation = -newLocation; }
-                    if((newLocation & startRank) != 0L) { possibleMoves += newLocation; }
+                // All horizontal and vertical moves
+                newLocation = (piecePosition ^ pieceRank) | (piecePosition ^ pieceFile);
+                
+                // Add bitboard to possible moves
+                possibleMoves += newLocation;
 
-                    // Go up
-                    newLocation = startPosition<<(j*8);
-                    if(i == 63) { newLocation = -newLocation; }
-                    possibleMoves += newLocation;
-
-                    // Go down
-                    newLocation = startPosition>>(j*8);
-                    if(i == 63) { newLocation = -newLocation; }
-                    possibleMoves += newLocation;                           
-                }   
-                rookMoves[i] = possibleMoves;
+                // As the index of A1 is 0, we assign to the list in decreasing order
+                rookMoves[63-index] = possibleMoves;
             }
             return rookMoves;
         }

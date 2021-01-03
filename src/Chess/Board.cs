@@ -43,24 +43,14 @@ namespace Chess
         /// </summary>
         public Board()
         {
-            string[,] initialCharBoard = {
-                {"r", "n", "b", "q", "k", "b", "n", "r"},
-                {"p", "p", "p", "p", "p", "p", "p", "p"},
-                {" ", " ", " ", " ", " ", " ", " ", " "},
-                {" ", " ", " ", " ", " ", " ", " ", " "},
-                {" ", " ", " ", " ", " ", " ", " ", " "},
-                {" ", " ", " ", " ", " ", " ", " ", " "},
-                {"P", "P", "P", "P", "P", "P", "P", "P"},
-                {"R", "N", "B", "Q", "K", "B", "N", "R"}
-            };
-            charBoard = initialCharBoard;
-
             for(int i = 0; i < 64; i++)
             {
                 Console.WriteLine(i);
-                printBitBoard(Queen.movesLookUp[i]);
+                printBitBoard(Bishop.movesLookUp[i]);
 
             }
+            
+            
         }
 
         /// <summary>
@@ -123,7 +113,6 @@ namespace Chess
             if (bb < 0)
             {
                 stringBoard = Convert.ToString(bb, 2);
-                stringBoard = Reverse(stringBoard);
             }
             else
             {
@@ -135,25 +124,14 @@ namespace Chess
                     stringBoard = string.Concat(Enumerable.Repeat("0", stringLengthDif)) + stringBoard;
                 }
 
-                stringBoard = Reverse(stringBoard);
             }
 
             for (int i = 0; i < 8; i++)
             {
-                string str = stringBoard.Substring(i * 8, 8);
+                int length = stringBoard.Length;
+                string str = stringBoard.Substring(56-(i * 8), 8);
                 Console.WriteLine(str);
             }
-        }
-
-        /// <summary>
-        /// Reverse string so that printing starts from square A8 (top left of the board)
-        /// </summary>
-        public static string Reverse(string s)
-        {
-            char[] charArray = s.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
-        }
-            
+        }            
     }
 }

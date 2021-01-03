@@ -6,8 +6,7 @@ namespace Chess
     {
         static void Main(string[] args)
         {
-            Board board = new Board();
-            Board.printBitBoard(board.WN.bb);
+            Board board = new Board();        
         }
     }
 }
