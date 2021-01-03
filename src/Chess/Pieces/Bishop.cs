@@ -6,8 +6,6 @@ namespace Chess
 {
     public class Bishop : Piece
     {
-        public new static long[] movesLookUp = generateLookUp();
-        public int value;
         private static Int64 startPosition = 0L;
         private static long possibleMoves = 0L;
         private static long newLocation = 0L;
@@ -16,12 +14,14 @@ namespace Chess
         private static bool offBoardUpRight = false;
         private static bool offBoardDownRight = false;
 
+        static Bishop() { movesLookUp = generateLookUp(); }
+
         public Bishop(bool color)
         {
             this.color = color;
 
             // if white
-            if(color == true)
+            if (color == true)
             {
                 this.bb = squareToBitboard("C1") | squareToBitboard("F1");
             }
@@ -31,9 +31,10 @@ namespace Chess
             }
 
             this.value = 3;
+            movesLookUp =
         }
 
-  
+
 
         public static long[] generateLookUp()
         {
