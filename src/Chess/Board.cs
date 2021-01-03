@@ -42,14 +42,7 @@ namespace Chess
         /// Initializes board in starting positions
         /// </summary>
         public Board()
-        {
-            for(int i = 0; i < 64; i++)
-            {
-                Console.WriteLine(i);
-                printBitBoard(Bishop.movesLookUp[i]);
-
-            }
-            
+        {            
             
         }
 
