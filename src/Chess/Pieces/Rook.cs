@@ -23,10 +23,20 @@ namespace Chess
             this.value = 5;
         }
 
+        /// <summary>
+        /// "rookMoves": An array of bitboard of length 64. Each element represents possible moves from position i.
+        /// "piecePosition": Bitboard of possible locations on the board.
+        /// "pieceRank": Bitboard of the rank of the piece location.
+        /// "pieceFile": Bitboard of filee of the piece location.
+        /// "possibleMoves": Bitboard of possible moves from a given location.
+        /// "newLocation": Bitboard of the new location after the move from starting location.
+        /// 
+        /// For each of the 64 possible locations for the rook, we gather all the squares the rook can move to
+        /// Horizontal and vertical moves are found using pieceRank and pieceFile
+        /// </summary>
         public static long[] generateLookUp()
         {
             long[] rookMoves = new long[64];
-
             long piecePosition;
             long pieceRank;
             long pieceFile;

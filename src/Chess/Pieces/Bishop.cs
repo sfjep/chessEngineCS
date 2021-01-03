@@ -28,6 +28,20 @@ namespace Chess
             this.value = 3;
         }
 
+
+        /// <summary>
+        /// "bishopMoves": An array of bitboard of length 64. Each element represents possible moves from position i.
+        /// "piecePosition": Bitboard of possible locations on the board.
+        /// "possibleMoves": Bitboard of possible moves from a given location.
+        /// "newLocation": Bitboard of the new location after the move from starting location.
+        /// 
+        /// For each of the 64 possible locations for the bishop, we gather all the squares the bishop can move to
+        /// Diagonal moves are found by shifting by an offset of 7 or 9 scaled by a factor from 1-7, as a piece can only move 7 steps in any direction 
+        /// For each index, we take modulo 8. This gives us the file number with 0-index. 
+        /// Say the bishop moves up and to the right. The index of the new location must have a modulo greater than the starting point.
+        /// Otherwise, the bishop moved off the board, and ended up on the A-file. 
+        /// The modulo must be less than the starting point if moving up and left. 
+        /// </summary>
         public static long[] generateLookUp()
         {
             long[] bishopMoves = new long[64];
@@ -38,32 +52,45 @@ namespace Chess
             for (int i = 0; i < 64; i++)
             {
                 piecePosition = 1L << (63 - i);
-                int leftOffset = i % 8;
-                int rightOffset = 7 - leftOffset;
                 possibleMoves = 0L;
 
-                for (int j = 1; j <= leftOffset; j++)
+                // Diagonal moves. Any piece can maximum move 7 steps in any direction 
+                for (int factor = 1; factor < 8; factor++)
                 {
-                    // Go up left, shift right by 7
-                    newLocation = piecePosition >> 7 * j;
-                    possibleMoves += newLocation;
+                    // Go up & right, we shift right by 9
+                    newLocation = piecePosition >> (factor * 9);
 
-                    // Go down left, shift left by 9
-                    newLocation = piecePosition << 9 * j;
-                    possibleMoves += newLocation;
+                    // If we did not move off the board, add new location to possibleMoves       
+                    if ((i % 8) < ((i + factor * 9) % 8))
+                    {
+                        if (i == 0) { newLocation = -newLocation; }
+                        possibleMoves += newLocation;
+                    }
+
+                    // Go up & left, we shift right by 7
+                    newLocation = piecePosition >> (factor * 7);
+                    if ((i % 8) > ((i + factor * 7) % 8))
+                    {
+                        if (i == 0) { newLocation = -newLocation; }
+                        possibleMoves += newLocation;
+                    }
+
+                    // Go down & right, we shift left by 7
+                    newLocation = piecePosition << (factor * 7);
+                    if ((i % 8) < ((i - factor * 7) % 8))
+                    {
+                        if (i == 0) { newLocation = -newLocation; }
+                        possibleMoves += newLocation;
+                    }
+
+                    // Go down & left, we shift left by 9
+                    newLocation = piecePosition << (factor * 9);
+                    if ((i % 8) > ((i - factor * 9) % 8))
+                    {
+                        if (i == 0) { newLocation = -newLocation; }
+                        possibleMoves += newLocation;
+                    }
                 }
-
-                for (int j = 1; j <= rightOffset; j++)
-                {
-                    // Go up right, shift right by 9
-                    newLocation = piecePosition >> 7 * j;
-                    possibleMoves += newLocation;
-
-                    // Go down right, shift left by 7
-                    newLocation = piecePosition << 9 * j;
-                    possibleMoves += newLocation;
-                }
-
                 bishopMoves[i] = possibleMoves;
             }
             return bishopMoves;

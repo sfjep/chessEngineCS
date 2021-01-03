@@ -6,11 +6,13 @@ namespace Chess
     {
         static void Main(string[] args)
         {
-            // for (int i = 0; i < 64; i++)
-            // {
-            long bb = 1L;
-            Board.printBitBoard(bb << 9);
+            Board board = new Board();
 
+            for (int i = 0; i < 64; i++)
+            {
+                Console.WriteLine(i);
+                Board.printBitBoard(Queen.movesLookUp[i]);
+            }
         }
     }
 }
