@@ -9,6 +9,8 @@ namespace Chess
         public new static long[] movesLookUp = generateLookUp();
         public int value;
 
+        static Bishop() { movesLookUp = generateLookUp(); }
+
         public Bishop(bool color)
         {
             this.color = color;
@@ -25,7 +27,6 @@ namespace Chess
 
             this.value = 3;
         }
-
 
         public static long[] generateLookUp()
         {

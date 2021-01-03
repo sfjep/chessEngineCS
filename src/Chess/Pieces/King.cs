@@ -6,18 +6,19 @@ namespace Chess
 {
     public class King : Piece
     {
-        public new static long[] movesLookUp = generateLookUp();
         public bool checkmate;
         public bool notMoved;
         public bool notInCheck;
         public bool queensideRookNotMoved;
         public bool kingsideRookNotMoved;
 
+        static King() { movesLookUp = generateLookUp(); }
+
         public King(bool color)
         {
             this.color = color;
-            
-            if(color == true)
+
+            if (color == true)
             {
                 this.bb = Squares.FILE_E & Squares.RANK_1;
             }

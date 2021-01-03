@@ -9,8 +9,9 @@ namespace Chess
         /// <summary>
         /// movesLookUp is an array of bitboards
         /// </summary>
-        public long[] movesLookUp;
+        public static long[] movesLookUp;
         public bool color;
         public long bb;
+        public int value;
     }
 }
