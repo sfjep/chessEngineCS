@@ -37,8 +37,8 @@ public static long[] generateLookUp()
             for(int i = 0; i < 64; i++)
             {
                 startPosition = 1L<<i;
-                startRank = Rank.bbRank(startPosition);
-                startFile = File.bbFile(startPosition);
+                startRank = Squares.bitboardToRank(startPosition);
+                startFile = Squares.bitboardToFile(startPosition);
 
                 possibleMoves = 0L;
                 newLocation = 0L;

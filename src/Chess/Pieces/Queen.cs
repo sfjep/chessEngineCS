@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using static Chess.Squares;
 
 namespace Chess
 {
@@ -42,8 +41,8 @@ namespace Chess
             for(int i = 0; i < 64; i++)
             {
                 startPosition = 1L<<i;
-                startRank = Rank.bbRank(startPosition);
-                startFile = File.bbFile(startPosition);
+                startRank = Squares.bitboardToRank(startPosition);
+                startFile = Squares.bitboardToFile(startPosition);
 
                 possibleMoves = 0L;
                 newLocation = 0L;
@@ -79,30 +78,30 @@ namespace Chess
                     // Go up & right
                     newLocation = startPosition<<(j*9);
                     if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & File.FILE_A) == 0L) && !offBoardUpRight) { possibleMoves += newLocation; }
+                    if(((newLocation & Squares.FILE_A) == 0L) && !offBoardUpRight) { possibleMoves += newLocation; }
                     else{ offBoardUpRight = true; }
-                    if((newLocation & File.FILE_H) != 0L) { offBoardUpRight = true; }
+                    if((newLocation & Squares.FILE_H) != 0L) { offBoardUpRight = true; }
 
                     // Go up & left
                     newLocation = startPosition<<(j*7);
                     if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & File.FILE_H) == 0L) && !offBoardUpLeft) { possibleMoves += newLocation; }
+                    if(((newLocation & Squares.FILE_H) == 0L) && !offBoardUpLeft) { possibleMoves += newLocation; }
                     else{ offBoardUpLeft = true; }
-                    if((newLocation & File.FILE_A) != 0L) { offBoardUpLeft = true; }
+                    if((newLocation & Squares.FILE_A) != 0L) { offBoardUpLeft = true; }
 
                     // Go down & right
                     newLocation = startPosition>>(j*7);
                     if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & File.FILE_A) == 0L) && !offBoardDownRight) { possibleMoves += newLocation; }
+                    if(((newLocation & Squares.FILE_A) == 0L) && !offBoardDownRight) { possibleMoves += newLocation; }
                     else{ offBoardDownRight = true; }
-                    if((newLocation & File.FILE_H) != 0L) { offBoardDownRight = true; }
+                    if((newLocation & Squares.FILE_H) != 0L) { offBoardDownRight = true; }
 
                     // Go down & left
                     newLocation = startPosition>>(j*9);
                     if(i == 63) { newLocation = -newLocation; }
-                    if(((newLocation & File.FILE_H) == 0L) && !offBoardDownLeft) { possibleMoves += newLocation; }     
+                    if(((newLocation & Squares.FILE_H) == 0L) && !offBoardDownLeft) { possibleMoves += newLocation; }     
                     else{ offBoardDownLeft = true; }
-                    if((newLocation & File.FILE_A) != 0L) { offBoardDownLeft = true; }
+                    if((newLocation & Squares.FILE_A) != 0L) { offBoardDownLeft = true; }
                            
                 }   
                 queenMoves[i] = possibleMoves;

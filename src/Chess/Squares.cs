@@ -40,6 +40,33 @@ namespace Chess
             "A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1",
         };
 
+        public static long bitboardToRank(long bitboard)
+        {
+            if( (bitboard & RANK_1) != 0L ) { return RANK_1; }
+            if( (bitboard & RANK_2) != 0L ) { return RANK_2; }
+            if( (bitboard & RANK_3) != 0L ) { return RANK_3; }
+            if( (bitboard & RANK_4) != 0L ) { return RANK_4; }
+            if( (bitboard & RANK_5) != 0L ) { return RANK_5; }
+            if( (bitboard & RANK_6) != 0L ) { return RANK_6; }
+            if( (bitboard & RANK_7) != 0L ) { return RANK_7; }
+            if( (bitboard & RANK_8) != 0L ) { return RANK_8; }
+
+            return 0L;
+        }
+
+        public static long bitboardToFile(long bitboard)
+        {
+            if( (bitboard & FILE_A) != 0L ) { return FILE_A; }
+            if( (bitboard & FILE_B) != 0L ) { return FILE_B; }
+            if( (bitboard & FILE_C) != 0L ) { return FILE_C; }
+            if( (bitboard & FILE_D) != 0L ) { return FILE_D; }
+            if( (bitboard & FILE_E) != 0L ) { return FILE_E; }
+            if( (bitboard & FILE_F) != 0L ) { return FILE_F; }
+            if( (bitboard & FILE_G) != 0L ) { return FILE_G; }
+            if( (bitboard & FILE_H) != 0L ) { return FILE_H; }
+
+            return 0L;
+        }
         /*  
         public static long squareToBitboard(string square)
         {

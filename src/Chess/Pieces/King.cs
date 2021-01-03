@@ -19,11 +19,11 @@ namespace Chess
             
             if(color == true)
             {
-                this.bb = squareToBitboard("E1");
+                this.bb = Squares.FILE_E & Squares.RANK_1;
             }
             else
             {
-                this.bb = squareToBitboard("E8");
+                this.bb = Squares.FILE_E & Squares.RANK_8;
             }
 
             this.checkmate = false;

@@ -20,56 +20,21 @@ namespace Chess
     public class Board
     {
         /// <summary>
-        /// White king
+        /// Instanciate pieces 
         /// </summary>
-        public King WK = new King(true, 0L);
-        /// <summary>
-        /// White queen
-        /// </summary>
-        public Queen WQ = new Queen(true, 0L);
-        /// <summary>
-        /// White rook
-        /// </summary>
-        public Rook WR = new Rook(true, 0L);
-        /// <summary>
-        /// White bishop
-        /// </summary>
-        public Bishop WB = new Bishop(true, 0L);
-        /// <summary>
-        /// White knight
-        /// </summary>
-        public Knight WN = new Knight(true, 0L);
-        /// <summary>
-        /// White pawn
-        /// </summary>
-        public Pawn WP = new Pawn(true, 0L);
-        /// <summary>
-        /// Black king
-        /// </summary>
-        public King BK = new King(false, 0L);
-        /// <summary>
-        /// Black queen 
-        /// </summary>
-        public Queen BQ = new Queen(false, 0L);
-        /// <summary>
-        /// Black rook 
-        /// </summary>
-        public Rook BR = new Rook(false, 0L);
-        /// <summary>
-        /// Black bishop 
-        /// </summary>
-        public Bishop BB = new Bishop(false, 0L);
-        /// <summary>
-        /// Black knight 
-        /// </summary>
-        public Knight BN = new Knight(false, 0L);
-        /// <summary>
-        /// Black pawn 
-        /// </summary>
-        public Pawn BP = new Pawn(false, 0L);
-        /// <summary>
-        /// Array of chars to provide graphical rep of the board
-        /// </summary>
+        public King WK = new King(true);
+        public Queen WQ = new Queen(true);
+        public Rook WR = new Rook(true);
+        public Bishop WB = new Bishop(true);
+        public Knight WN = new Knight(true);
+        public Pawn WP = new Pawn(true);
+        public King BK = new King(false);
+        public Queen BQ = new Queen(false);
+        public Rook BR = new Rook(false);
+        public Bishop BB = new Bishop(false);
+        public Knight BN = new Knight(false);
+        public Pawn BP = new Pawn(false);
+
         public static string[,] charBoard = new string[8, 8];
         private static int stringLengthDif;
 
@@ -89,62 +54,12 @@ namespace Chess
                 {"R", "N", "B", "Q", "K", "B", "N", "R"}
             };
             charBoard = initialCharBoard;
-            arrayToBitboards();
 
             for(int i = 0; i < 64; i++)
             {
                 Console.WriteLine(i);
                 printBitBoard(Queen.movesLookUp[i]);
 
-            }
-        }
-
-        /// <summary>
-        /// Iterates through char array and generates all the bitboards for each piece.
-        /// </summary>
-        public void arrayToBitboards()
-        {
-            for (int i = 0; i < 64; i++)
-            {
-                switch (charBoard[i / 8, i % 8])
-                {
-                    case "r":
-                        this.BR.bb += (1L << (64 - i));
-                        break;
-                    case "n":
-                        this.BN.bb += convertStringToBitboard(bin);
-                        break;
-                    case "b":
-                        this.BB.bb += convertStringToBitboard(bin);
-                        break;
-                    case "q":
-                        this.BQ.bb += convertStringToBitboard(bin);
-                        break;
-                    case "k":
-                        this.BK.bb += convertStringToBitboard(bin);
-                        break;
-                    case "p":
-                        this.BP.bb += convertStringToBitboard(bin);
-                        break;
-                    case "R":
-                        this.WR.bb += convertStringToBitboard(bin);
-                        break;
-                    case "N":
-                        this.WN.bb += convertStringToBitboard(bin);
-                        break;
-                    case "B":
-                        this.WB.bb += convertStringToBitboard(bin);
-                        break;
-                    case "Q":
-                        this.WQ.bb += convertStringToBitboard(bin);
-                        break;
-                    case "K":
-                        this.WK.bb += convertStringToBitboard(bin);
-                        break;
-                    case "P":
-                        this.WP.bb += convertStringToBitboard(bin);
-                        break;
-                }
             }
         }
 

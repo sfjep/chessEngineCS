@@ -23,18 +23,17 @@ namespace Chess
             // if white
             if(color == true)
             {
-                this.bb = squareToBitboard("C1") | squareToBitboard("F1");
+                this.bb = (Squares.FILE_C | Squares.FILE_F) & Squares.RANK_1;
             }
             else
             {
-                this.bb = squareToBitboard("C8") | squareToBitboard("F8");
+                this.bb = (Squares.FILE_C | Squares.FILE_F) & Squares.RANK_8;
             }
 
             this.value = 3;
         }
 
   
-
         public static long[] generateLookUp()
         {
             long[] bishopMoves = new long[64];
@@ -56,30 +55,30 @@ namespace Chess
                     // Go up & right
                     newLocation = startPosition << (j * 9);
                     if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & File.FILE_A) == 0L) && !offBoardUpRight) { possibleMoves += newLocation; }
+                    if (((newLocation & Squares.FILE_A) == 0L) && !offBoardUpRight) { possibleMoves += newLocation; }
                     else { offBoardUpRight = true; }
-                    if ((newLocation & File.FILE_H) != 0L) { offBoardUpRight = true; }
+                    if ((newLocation & Squares.FILE_H) != 0L) { offBoardUpRight = true; }
 
                     // Go up & left
                     newLocation = startPosition << (j * 7);
                     if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & File.FILE_H) == 0L) && !offBoardUpLeft) { possibleMoves += newLocation; }
+                    if (((newLocation & Squares.FILE_H) == 0L) && !offBoardUpLeft) { possibleMoves += newLocation; }
                     else { offBoardUpLeft = true; }
-                    if ((newLocation & File.FILE_A) != 0L) { offBoardUpLeft = true; }
+                    if ((newLocation & Squares.FILE_A) != 0L) { offBoardUpLeft = true; }
 
                     // Go down & right
                     newLocation = startPosition >> (j * 7);
                     if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & File.FILE_A) == 0L) && !offBoardDownRight) { possibleMoves += newLocation; }
+                    if (((newLocation & Squares.FILE_A) == 0L) && !offBoardDownRight) { possibleMoves += newLocation; }
                     else { offBoardDownRight = true; }
-                    if ((newLocation & File.FILE_H) != 0L) { offBoardDownRight = true; }
+                    if ((newLocation & Squares.FILE_H) != 0L) { offBoardDownRight = true; }
 
                     // Go down & left
                     newLocation = startPosition >> (j * 9);
                     if (i == 63) { newLocation = -newLocation; }
-                    if (((newLocation & File.FILE_H) == 0L) && !offBoardDownLeft) { possibleMoves += newLocation; }
+                    if (((newLocation & Squares.FILE_H) == 0L) && !offBoardDownLeft) { possibleMoves += newLocation; }
                     else { offBoardDownLeft = true; }
-                    if ((newLocation & File.FILE_A) != 0L) { offBoardDownLeft = true; }
+                    if ((newLocation & Squares.FILE_A) != 0L) { offBoardDownLeft = true; }
                 }
                 bishopMoves[i] = possibleMoves;
             }

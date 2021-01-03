@@ -10,10 +10,19 @@ namespace Chess
         private static long startPosition = 0L;
         private static long  possibleMoves = 0L;
 
-        public Knight(bool color, long bb)
+        public Knight(bool color)
         {
             this.color = color;
-            this.bb = bb;
+            
+            if(color == true)
+            {
+                this.bb = (Squares.FILE_B | Squares.FILE_G) & Squares.RANK_1;
+            }
+            else
+            {
+                this.bb = (Squares.FILE_B | Squares.FILE_G) & Squares.RANK_8;
+            }
+            
             this.value = 3;
         }
 
