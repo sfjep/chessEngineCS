@@ -39,6 +39,16 @@ namespace Chess
             "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2",
             "A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1",
         };
+
+        /*  
+        public static long squareToBitboard(string square)
+        {
+            int index = Array.IndexOf(SquareNames, square);
+            long bitboard = 1L << (63-index);
+            
+            return bitboard;
+        }
+        */
     }
 }
 

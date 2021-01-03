@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using static Chess.Squares;
 
 namespace Chess
 {
@@ -18,10 +19,19 @@ namespace Chess
         private static bool offBoardDownRight = false;
 
 
-        public Queen(bool color, long bb)
+        public Queen(bool color)
         {
             this.color = color;
-            this.bb = bb;
+            
+            if(color == true)
+            {
+                this.bb = Squares.FILE_D & Squares.RANK_1;
+            }
+            else
+            {
+                this.bb = Squares.FILE_D & Squares.RANK_8;
+            }
+
             this.value = 9;
         }
 

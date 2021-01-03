@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using static Chess.Squares;
 
 namespace Chess
 {
@@ -15,12 +16,24 @@ namespace Chess
         private static bool offBoardUpRight = false;
         private static bool offBoardDownRight = false;
 
-        public Bishop(bool color, long bb)
+        public Bishop(bool color)
         {
             this.color = color;
-            this.bb = bb;
+
+            // if white
+            if(color == true)
+            {
+                this.bb = squareToBitboard("C1") | squareToBitboard("F1");
+            }
+            else
+            {
+                this.bb = squareToBitboard("C8") | squareToBitboard("F8");
+            }
+
             this.value = 3;
         }
+
+  
 
         public static long[] generateLookUp()
         {

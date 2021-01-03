@@ -106,13 +106,10 @@ namespace Chess
         {
             for (int i = 0; i < 64; i++)
             {
-                var bin = "0000000000000000000000000000000000000000000000000000000000000000";
-                bin = bin.Substring(i + 1) + "1" + bin.Substring(0, i);
-
                 switch (charBoard[i / 8, i % 8])
                 {
                     case "r":
-                        this.BR.bb += convertStringToBitboard(bin);
+                        this.BR.bb += (1L << (64 - i));
                         break;
                     case "n":
                         this.BN.bb += convertStringToBitboard(bin);

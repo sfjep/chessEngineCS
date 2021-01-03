@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using static Chess.Squares;
 namespace Chess
 {
     public class Rook : Piece
@@ -14,10 +14,19 @@ namespace Chess
         private static long  newLocation = 0L;
 
 
-        public Rook(bool color, long bb)
+        public Rook(bool color)
         {
             this.color = color;
-            this.bb = bb;
+            
+            if(color == true)
+            {
+                this.bb = (Squares.FILE_A | Squares.FILE_H) & Squares.RANK_1;
+            }
+            else
+            {
+                this.bb = (Squares.FILE_A | Squares.FILE_H) & Squares.RANK_8;
+            }
+
             this.value = 5;
         }
 

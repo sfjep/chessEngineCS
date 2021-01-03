@@ -15,10 +15,20 @@ namespace Chess
         private static bool offBoardUpLeft = false;
         private static bool offBoardUpRight = false;
 
-        public Pawn(bool color, long bb)
+        public Pawn(bool color)
         {
             this.color = color;
-            this.bb = bb;
+            
+            if(color == true)
+            {
+                this.bb = Squares.RANK_2;
+            }
+            else
+            {
+                this.bb = Squares.RANK_7;
+            }
+
+
             this.value = 1;
         }
 
@@ -58,24 +68,8 @@ namespace Chess
                     // Captures and en pasant
                 }
 
-
-                    // If white and pawn still on second rank, two moves forward is possible
-                    if(j == 2 && startRank == 2 && this.color == true)
-                    {
-                        newLocation = startPosition<<(j*8);
-                        possibleMoves += newLocation;
-                    }
-                    // If black and the pawn is still on the 7th rank
-                    else if(j == 2 && startRank == 7 && this.color == false)
-                    {
-                        newLocation = startPosition>>(j*8);
-                        possibleMoves += newLocation;
-                    }
-                    
-
-                    newLocation = startPosition<<(j*8);
-                    if(i == 63) { newLocation = -newLocation; }
-                    possibleMoves += newLocation;
+                if(i == 63) { newLocation = -newLocation; }
+                possibleMoves += newLocation;
             }
             return movesLookUp;
         }

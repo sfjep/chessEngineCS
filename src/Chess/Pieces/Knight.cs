@@ -31,10 +31,10 @@ namespace Chess
                 startPosition = 1L<<i;
                 possibleMoves = 0L;
                 
-                if((startPosition & File.FILE_A)!=0L) { getMovesFromFile(startPosition, knigthShifts_A_File, i); }
-                else if((startPosition & File.FILE_B)!=0L) { getMovesFromFile(startPosition, knigthShifts_B_File, i); }
-                else if((startPosition & File.FILE_G)!=0L) { getMovesFromFile(startPosition, knigthShifts_G_File, i); }
-                else if((startPosition & File.FILE_H)!=0L) { getMovesFromFile(startPosition, knigthShifts_H_File, i); }
+                if((startPosition & Squares.FILE_A)!=0L) { getMovesFromFile(startPosition, knigthShifts_A_File, i); }
+                else if((startPosition & Squares.FILE_B)!=0L) { getMovesFromFile(startPosition, knigthShifts_B_File, i); }
+                else if((startPosition & Squares.FILE_G)!=0L) { getMovesFromFile(startPosition, knigthShifts_G_File, i); }
+                else if((startPosition & Squares.FILE_H)!=0L) { getMovesFromFile(startPosition, knigthShifts_H_File, i); }
                 else { getMovesFromFile(startPosition, knigthShifts_CDEF, i); }
                 knightMoves[i] = possibleMoves;
             }

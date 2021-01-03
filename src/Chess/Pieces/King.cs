@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using static Chess.Squares;
 
 namespace Chess
 {
@@ -12,10 +13,19 @@ namespace Chess
         public bool queensideRookNotMoved;
         public bool kingsideRookNotMoved;
 
-        public King(bool color, long bb)
+        public King(bool color)
         {
             this.color = color;
-            this.bb = bb;
+            
+            if(color == true)
+            {
+                this.bb = squareToBitboard("E1");
+            }
+            else
+            {
+                this.bb = squareToBitboard("E8");
+            }
+
             this.checkmate = false;
             this.notMoved = true;
             this.notInCheck = true;
